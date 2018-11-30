@@ -12,11 +12,12 @@ namespace pawrser {
 			var source = args[0];
 			var destination = args.Length == 2 ? args[1] : null;
 
-			var srcFileConfig = new SrcFileConfig(source);
-			var dbFileConfig = new DbFileConfig(destination);
+			var mainLoop = new MainLoop() {
+				SrcFileConfig = new SrcFileConfig(source),
+				DbFileConfig = new DbFileConfig(destination)
+			};
 
-			Console.WriteLine(srcFileConfig.GetFilePath());
-			Console.WriteLine(dbFileConfig.GetFilePath());
+			mainLoop.Process();
 		}
 
 		static void PrintUsage() {
