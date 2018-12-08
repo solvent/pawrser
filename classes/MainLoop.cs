@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,7 @@ namespace pawrser.classes {
 	public class MainLoop {
 		public DbFileConfig DbFileConfig;
 		public SrcFileConfig SrcFileConfig;
+		public InputLineFilter InputLineFilter;
 
 		public MainLoop() {
 		}
@@ -18,7 +20,8 @@ namespace pawrser.classes {
 			}
 
 			File.ReadLines(SrcFileConfig.GetFilePath(), Encoding.UTF8)
-				.Select(x => new FileLine(x))
+				.Where(InputLineFilter.GetExpression())
+				.Select(x => new InputLine(x))
 				.Where(x => x.IsFile)
 				.GroupBy(x => x.Title, (a, b) => new {
 					Title = a,
@@ -26,7 +29,13 @@ namespace pawrser.classes {
 					Episodes = b.Select(y => y.Episode)
 				})
 				.ToList()
-				.ForEach(x => Console.WriteLine(x.Title + "[" + string.Join(",", x.Tags) + "]"));
+				.ForEach(x => Console.WriteLine(
+					Environment.NewLine +
+					x.Title + Environment.NewLine +
+					" = [ " + string.Join(", ", x.Tags) + " ]" + Environment.NewLine +
+					" - " + string.Join(Environment.NewLine + " - ", x.Episodes) +
+					Environment.NewLine
+				));
 		}
 	}
 

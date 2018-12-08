@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Text;
 using pawrser.classes;
 
 namespace pawrser {
 
 	class Program {
 		static void Main(string[] args) {
+			Console.OutputEncoding = Encoding.UTF8;
 			if (args.Length == 0 || args.Length > 2) {
 				PrintUsage();
 				return;
@@ -14,7 +16,8 @@ namespace pawrser {
 
 			var mainLoop = new MainLoop() {
 				SrcFileConfig = new SrcFileConfig(source),
-				DbFileConfig = new DbFileConfig(destination)
+				DbFileConfig = new DbFileConfig(destination),
+				InputLineFilter = new InputLineFilter()
 			};
 
 			mainLoop.Process();
