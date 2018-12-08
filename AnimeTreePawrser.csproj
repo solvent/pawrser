@@ -6,4 +6,9 @@
 		<RuntimeIdentifiers>win10-x64;debian.9-x64;gentoo-x64</RuntimeIdentifiers>
 	</PropertyGroup>
 
+	<ItemGroup>
+	  <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="2.2.0" />
+	  <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="2.2.0" />
+	</ItemGroup>
+
 </Project>
