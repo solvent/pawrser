@@ -5,6 +5,10 @@ namespace pawrser.classes {
 
 	public class SqliteContext : DbContext {
 
+		protected DbFileConfig DbConfig {
+			get; set;
+		}
+
 		public DbSet<Title> Titles {
 			get; set;
 		}
@@ -15,6 +19,18 @@ namespace pawrser.classes {
 
 		public DbSet<Tag> Tags {
 			get; set;
+		}
+
+		public DbSet<TagRef> TagRefs {
+			get; set;
+		}
+
+		public SqliteContext(DbFileConfig dbConfig) {
+			DbConfig = dbConfig;
+		}
+
+		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) {
+			optionsBuilder.UseSqlite("Data Source=" + DbConfig.GetFilePath());
 		}
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder) {
