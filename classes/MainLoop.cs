@@ -73,6 +73,7 @@ namespace pawrser.classes {
 				Name = x.Title
 			};
 			db.Titles.Add(title);
+			db.SaveChanges();
 
 			var tagRefs = new List<TagRef>();
 			x.Tags.ToList().ForEach(tagName => {
@@ -82,6 +83,7 @@ namespace pawrser.classes {
 						Name = tagName
 					};
 					db.Tags.Add(tag);
+					db.SaveChanges();
 				}
 				tagRefs.Add(new TagRef() {
 					TitleId = title.Id,
