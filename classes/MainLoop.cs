@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using pawrser.classes.entities;
+using librawry.portable;
+using librawry.portable.entities;
+using Microsoft.EntityFrameworkCore;
 using ShellProgressBar;
 
 namespace pawrser.classes {
@@ -27,7 +29,11 @@ namespace pawrser.classes {
 				throw new ArgumentNullException();
 			}
 
-			using (var db = new SqliteContext(DbFileConfig)) {
+			var contextOptions = new DbContextOptionsBuilder<LibrawryContext>()
+				.UseSqlite("Data Source=" + DbFileConfig.GetFilePath())
+				.Options;
+
+			using (var db = new LibrawryContext(contextOptions)) {
 				db.Database.EnsureDeleted();
 				db.Database.EnsureCreated();
 				db.ChangeTracker.AutoDetectChangesEnabled = false;
@@ -68,7 +74,7 @@ namespace pawrser.classes {
 			}
 		}
 
-		private void ProcessTitle(SqliteContext db, TitleStruct x) {
+		private void ProcessTitle(LibrawryContext db, TitleStruct x) {
 			var title = new Title() {
 				Name = x.Title
 			};
