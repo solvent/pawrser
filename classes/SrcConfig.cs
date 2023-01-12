@@ -1,18 +1,16 @@
 using System.IO;
 
-namespace pawrser.classes {
+namespace pawrser.classes;
 
-	public class SrcFileConfig : BaseFileConfig {
+public class SrcFileConfig : BaseFileConfig {
 
-		public SrcFileConfig(string source) {
-			try {
-				_fileInfo = new FileInfo(source);
-			} catch {
-				// doing nothing
-			}
+	public SrcFileConfig(string source) {
+		try {
+			_fileInfo = new FileInfo(source);
+		} catch {
+			// doing nothing
 		}
-
-		public bool IsValid => _fileInfo != null && _fileInfo.Exists;
 	}
 
+	public bool IsValid => _fileInfo != null && _fileInfo.Exists;
 }

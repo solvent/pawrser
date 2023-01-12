@@ -1,14 +1,12 @@
 using System.IO;
 
-namespace pawrser.classes {
+namespace pawrser.classes;
 
-	public class BaseFileConfig {
+public class BaseFileConfig {
 
-		protected FileInfo _fileInfo = null;
+	protected FileInfo _fileInfo = null;
 
-		public string GetFilePath() {
-			return _fileInfo.ToString();
-		}
+	public string GetFilePath() {
+		return _fileInfo.ToString();
 	}
-
 }
